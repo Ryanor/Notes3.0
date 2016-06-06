@@ -16,6 +16,13 @@
         <Grid.Background>
             <ImageBrush ImageSource="ms-appx:///Assets/Da_Vinci.png" Stretch="Fill" />
         </Grid.Background>
+        <TextBlock x:Name="TextTitle"
+                   Grid.ColumnSpan="2"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Top"
+                   FontSize="36"
+                   Text="Notes"
+                   TextWrapping="Wrap" />
         <Button x:Name="ButtonNew"
                 Grid.Column="0"
                 Margin="10,100,0,0"
@@ -44,14 +51,6 @@
                 VerticalAlignment="Top"
                 Click="ButtonSettings_Click"
                 Content="Settings" />
-        <TextBlock x:Name="TextTitle"
-                   Grid.Column="1"
-                   Margin="15.153,10,138,0"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Top"
-                   FontSize="32"
-                   Text="Notes"
-                   TextWrapping="Wrap" />
     </Grid>
 </Page>
 

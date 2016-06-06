@@ -15,6 +15,10 @@
             <ImageBrush ImageSource="ms-appx:///Assets/Da_Vinci.png" Stretch="Fill" />
         </Grid.Background>
         <StackPanel>
+            <TextBox HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     FontSize="48"
+                     Text="Read" />
             <ListView Height="300" ItemsSource="{x:Bind ViewModel.ReadList, Mode=OneWay}">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="models:Note">

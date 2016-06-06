@@ -25,8 +25,12 @@
             <ImageBrush ImageSource="ms-appx:///Assets/Da_Vinci.png" Stretch="Fill" />
         </Grid.Background>
         <StackPanel>
+            <TextBox HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     FontSize="48"
+                     Text="Create" />
             <TextBox x:Name="Note"
-                     Height="200"
+                     Height="100"
                      Text="{x:Bind ViewModel.NewTextNote, Mode=TwoWay}" />
         </StackPanel>
     </Grid>
