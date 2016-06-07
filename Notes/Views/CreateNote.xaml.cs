@@ -11,18 +11,18 @@ namespace Notes.Views
 
 
     {
-
-        private DispatcherTimer dispatcherTimer = new DispatcherTimer();
+        
+        DispatcherTimer dispatcherTimer = new DispatcherTimer();
 
         public MainViewModel ViewModel => DataContext as MainViewModel;
 
         public CreateNote()
         {    
             this.InitializeComponent();
-            
+
             dispatcherTimer.Interval = new TimeSpan(0, 0, 1);
 
-           // dispatcherTimer.Tick += dispatcherTimer_Tick;
+            dispatcherTimer.Tick += dispatcherTimer_Tick;
             dispatcherTimer.Start();
         }
 
@@ -33,7 +33,7 @@ namespace Notes.Views
             ((Application)Application.Current).OnBackRequested += OnOnBackRequested;
         }
 
-        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        private void dispatcherTimer_Tick(object sender, object e)
         {
            
             BoxForTime.Text = DateTime.Now.ToString();
