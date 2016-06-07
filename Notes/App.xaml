@@ -5,8 +5,9 @@
              xmlns:viewModels="using:Notes.ViewModels"
              RequestedTheme="Light">
     <Application.Resources>
-
-
+        <Style x:Key="StretchedItemStyle" TargetType="ListViewItem">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        </Style>
         <viewModels:ViewModelLocator x:Key="Locator" />
     </Application.Resources>
 </Application>

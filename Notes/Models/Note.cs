@@ -10,7 +10,7 @@ namespace Notes.Models
     public class Note
     {
         public string TextNote { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime Date {get; set; }
 
         public Note(string textNote, DateTime date)
         {
@@ -25,19 +25,18 @@ namespace Notes.Models
                 if (TextNote.Length <= 10)
                 {
                     
-                    return $"{TextNote}" + Date;
+                    return $"{TextNote}";
                 }
                 else
                 {
-                    return $"{TextNote}".Substring(0,10) + Date;
+                    return $"{TextNote}".Substring(0,10);
                 }
             }
         }
 
-
-        public override string ToString()
+        /*public override string ToString()
         {
             return NoteContext;
-        }
+        }*/
     }
 }

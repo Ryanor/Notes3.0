@@ -30,8 +30,11 @@
                      FontSize="48"
                      Text="Create" />
             <TextBox x:Name="Note"
-                     Height="100"
-                     Text="{x:Bind ViewModel.NewTextNote, Mode=TwoWay}" />
+                     Height="200"
+                     AcceptsReturn="True"
+                     Text="{x:Bind ViewModel.NewTextNote, Mode=TwoWay}"
+                     TextWrapping="Wrap" />
+            <TextBox x:Name="BoxForTime" />
         </StackPanel>
     </Grid>
 </Page>

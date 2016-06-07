@@ -19,10 +19,19 @@
                      VerticalAlignment="Center"
                      FontSize="48"
                      Text="Read" />
-            <ListView Height="300" ItemsSource="{x:Bind ViewModel.ReadList, Mode=OneWay}">
+            <ListView Height="300"
+                      ItemContainerStyle="{StaticResource StretchedItemStyle}"
+                      ItemsSource="{x:Bind ViewModel.ReadList, Mode=OneWay}">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="models:Note">
-                        <TextBox Text="{x:Bind NoteContext}" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0" Text="{x:Bind NoteContext}" />
+                            <TextBox Grid.Column="1" Text="{x:Bind Date}" />
+                        </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
