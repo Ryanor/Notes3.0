@@ -21,8 +21,9 @@ namespace Notes.ViewModels
 {
         private readonly NavigationService _navigationService;
         public ObservableCollection<Note> AllNotes { get; }
-    
-        public List<Note> ReadList
+        public IEnumerable<Note> ReadList => AllNotes.Take((int)NumberOfNotes);
+
+        /*public List<Note> ReadList
         {
             get
             {
@@ -40,7 +41,7 @@ namespace Notes.ViewModels
                 }
                 return list;
             }
-        }
+        }*/
 
 
         public double NumberOfNotes { get; set; }
@@ -55,24 +56,26 @@ namespace Notes.ViewModels
             _navigationService.Configure("SearchNotes", typeof(SearchNotes));
             _navigationService.Configure("Settings", typeof(Settings));
 
-            Note newNote = new Note("Lorem Isum Kauderwelsch, blabla blabla", DateTime.Now);
+            Note newNote = new Note("Short Lorem","Lorem Isum Kauderwelsch, blabla blabla", DateTime.Now);
 
             AllNotes = new ObservableCollection<Note>()
             {
-                 new Note("Halli Hallo, ich bin eine kleine Nachricht!", DateTime.Now),
+                 new Note("Hallo Message","Halli Hallo, ich bin eine kleine Nachricht!", DateTime.Now),
                  newNote
          };
 
         }
 
+        public string NewTextTitle { get; set; }
         public string NewTextNote { get; set; }
 
         public void SaveNewNote()
         {
-            if ( !String.IsNullOrEmpty(NewTextNote))
+            if ( !String.IsNullOrEmpty(NewTextTitle))
             {
-                AllNotes.Add(new Note(NewTextNote, DateTime.Now));
+                AllNotes.Add(new Note(NewTextTitle, NewTextNote, DateTime.Now));
                 _navigationService.GoBack();
+                NewTextTitle = String.Empty;
                 NewTextNote = String.Empty;
             }
         }
@@ -92,6 +95,7 @@ namespace Notes.ViewModels
                     {
                         if (confirmed)
                         {
+                            NewTextTitle = String.Empty;
                             NewTextNote = String.Empty;
                             _navigationService.GoBack();
                         }

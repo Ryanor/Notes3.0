@@ -89,6 +89,7 @@ namespace Notes
                 Window.Current.Activate();
             }
         }
+
         public event EventHandler<BackRequestedEventArgs> OnBackRequested;
 
         private void AppBackRequested(object sender, BackRequestedEventArgs e)
@@ -99,7 +100,8 @@ namespace Notes
             {
                 // Default is to navigate back within the Frame
                 Frame frame = Window.Current.Content as Frame;
-                if (frame.CanGoBack)
+
+                if ( frame != null && frame.CanGoBack)
                 {
                     frame.GoBack();
                     // Signal handled so that system doesn't navigate back through app stack

@@ -9,13 +9,31 @@ namespace Notes.Models
 {
     public class Note
     {
+        public string NoteTitle { get; set; }
         public string TextNote { get; set; }
         public DateTime Date {get; set; }
 
-        public Note(string textNote, DateTime date)
+        public Note(string noteTitle, string textNote, DateTime date)
         {
+            this.NoteTitle = noteTitle;
             this.TextNote = textNote;
             this.Date = date;
+        }
+
+
+        public string Title
+        {
+            get
+            {
+                if (NoteTitle.Length <= 20)
+                {
+                    return $"{NoteTitle}";
+                }
+                else
+                {
+                    return $"{NoteTitle}".Substring(0, 20);
+                }
+            }
         }
 
         public string NoteContext
@@ -34,9 +52,9 @@ namespace Notes.Models
             }
         }
 
-        /*public override string ToString()
+        public string FormattedDate
         {
-            return NoteContext;
-        }*/
+            get { return Date.ToString("dd-MM-yyyy / hh:mm:ss"); }
+        }
     }
 }

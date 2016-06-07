@@ -20,7 +20,7 @@
                    Grid.ColumnSpan="2"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Top"
-                   FontSize="36"
+                   FontSize="48"
                    Text="Notes"
                    TextWrapping="Wrap" />
         <Button x:Name="ButtonNew"

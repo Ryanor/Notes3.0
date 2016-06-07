@@ -15,22 +15,37 @@
             <ImageBrush ImageSource="ms-appx:///Assets/Da_Vinci.png" Stretch="Fill" />
         </Grid.Background>
         <StackPanel>
-            <TextBox HorizontalAlignment="Center"
-                     VerticalAlignment="Center"
-                     FontSize="48"
-                     Text="Read" />
+            <TextBlock HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="48"
+                       Text="Read" />
             <ListView Height="300"
                       ItemContainerStyle="{StaticResource StretchedItemStyle}"
                       ItemsSource="{x:Bind ViewModel.ReadList, Mode=OneWay}">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="models:Note">
                         <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <TextBox Grid.Column="0" Text="{x:Bind NoteContext}" />
-                            <TextBox Grid.Column="1" Text="{x:Bind Date}" />
+                            <TextBlock Grid.Row="0"
+                                       Grid.ColumnSpan="2"
+                                       FontSize="18"
+                                       FontWeight="Bold"
+                                       Text="{x:Bind NoteTitle}" />
+                            <TextBlock Grid.Row="1"
+                                       Grid.Column="0"
+                                       Text="{x:Bind NoteContext}" />
+                            <TextBlock Grid.Row="1"
+                                       Grid.Column="1"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Bottom"
+                                       Text="{x:Bind FormattedDate}" />
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>

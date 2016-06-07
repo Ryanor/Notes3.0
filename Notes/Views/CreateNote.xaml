@@ -25,13 +25,17 @@
             <ImageBrush ImageSource="ms-appx:///Assets/Da_Vinci.png" Stretch="Fill" />
         </Grid.Background>
         <StackPanel>
-            <TextBox HorizontalAlignment="Center"
-                     VerticalAlignment="Center"
-                     FontSize="48"
-                     Text="Create" />
+            <TextBlock HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="48"
+                       Text="Create" />
+            <TextBox x:Name="Title"
+                     PlaceholderText="Title"
+                     Text="{x:Bind ViewModel.NewTextTitle, Mode=TwoWay}" />
             <TextBox x:Name="Note"
                      Height="200"
                      AcceptsReturn="True"
+                     PlaceholderText="Your note here..."
                      Text="{x:Bind ViewModel.NewTextNote, Mode=TwoWay}"
                      TextWrapping="Wrap" />
             <TextBox x:Name="BoxForTime" />
