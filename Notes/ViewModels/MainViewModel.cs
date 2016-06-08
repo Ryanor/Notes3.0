@@ -23,29 +23,7 @@ namespace Notes.ViewModels
         public ObservableCollection<Note> AllNotes { get; }
         public IEnumerable<Note> ReadList => AllNotes.Take((int)NumberOfNotes);
 
-        /*public List<Note> ReadList
-        {
-            get
-            {
-                var list = new List<Note>();
-                if (NumberOfNotes < AllNotes.Count)
-                {
-                    for (int i = 0; i < NumberOfNotes; i++)
-                    {
-                        list.Add(AllNotes.ElementAt(i));
-                    }
-                }
-                else
-                {
-                    list.AddRange(AllNotes);
-                }
-                return list;
-            }
-        }*/
-
-
         public double NumberOfNotes { get; set; }
-
 
         public MainViewModel()
         {
@@ -61,15 +39,17 @@ namespace Notes.ViewModels
             AllNotes = new ObservableCollection<Note>()
             {
                  new Note("Hallo Message","Halli Hallo, ich bin eine kleine Nachricht!", DateTime.Now),
-                 newNote
-         };
-
+                 new Note("Hallo","asdfjklö,asdfjklö",DateTime.Now),
+                 new Note("Hoi","jkadjkgjakdjgkajgkjdfj",DateTime.Now),
+                newNote
+            };
         }
 
-        public string NewTextTitle { get; set; }
-        public string NewTextNote { get; set; }
+        // Moved into CreateViewModel
+       /* public string NewTextTitle { get; set; }
+        public string NewTextNote { get; set; }*/
 
-        public void SaveNewNote()
+        /*public void SaveNewNote()
         {
             if ( !String.IsNullOrEmpty(NewTextTitle))
             {
@@ -101,8 +81,8 @@ namespace Notes.ViewModels
                         }
 
                     });
-            }
-        }
+            } 
+        }*/
 
         public void NavigateToPage2()
         {

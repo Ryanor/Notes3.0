@@ -4,7 +4,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:Notes.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      DataContext="{Binding MainViewModel,
+      DataContext="{Binding CreateViewModel,
                             Source={StaticResource Locator}}"
       mc:Ignorable="d">
     <Page.BottomAppBar>

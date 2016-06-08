@@ -7,14 +7,12 @@ using Notes.ViewModels;
 
 namespace Notes.Views
 {
-    public sealed partial class CreateNote : Page //, INotifyPropertyChanged
-
-
+    public sealed partial class CreateNote : Page
     {
 
         readonly DispatcherTimer _dispatcherTimer = new DispatcherTimer();
 
-        public MainViewModel ViewModel => DataContext as MainViewModel;
+        public CreateViewModel ViewModel => DataContext as CreateViewModel;
 
         public CreateNote()
         {    

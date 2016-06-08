@@ -95,9 +95,11 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converter\DoubleToIntegerConverter.cs" />
+    <Compile Include="Converter\IntegerToDoublerConverter.cs" />
     <Compile Include="Models\Note.cs" />
+    <Compile Include="ViewModels\CreateViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\ReadViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\CreateNote.xaml.cs">
       <DependentUpon>CreateNote.xaml</DependentUpon>

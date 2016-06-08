@@ -9,7 +9,7 @@
                             Source={StaticResource Locator}}"
       mc:Ignorable="d">
     <Page.Resources>
-        <converter:DoubleToIntegerConverter x:Key="DoubleToIntegerConverter" />
+        <converter:IntegerToDoublerConverter x:Key="DoubleToIntegerConverter" />
     </Page.Resources>
     <Grid>
         <Grid.Background>

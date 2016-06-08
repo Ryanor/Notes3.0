@@ -11,7 +11,7 @@ namespace Notes.Models
     {
         public string NoteTitle { get; set; }
         public string TextNote { get; set; }
-        public DateTime Date {get; set; }
+        public DateTime Date { get; set; }
 
         public Note(string noteTitle, string textNote, DateTime date)
         {
@@ -25,13 +25,13 @@ namespace Notes.Models
         {
             get
             {
-                if (NoteTitle.Length <= 20)
+                if (NoteTitle.Length <= 15)
                 {
                     return $"{NoteTitle}";
                 }
                 else
                 {
-                    return $"{NoteTitle}".Substring(0, 20);
+                    return $"{NoteTitle}".Substring(0, 15) + $"...";
                 }
             }
         }
@@ -40,21 +40,18 @@ namespace Notes.Models
         {
             get
             {
-                if (TextNote.Length <= 10)
+                if (TextNote.Length <= 15)
                 {
-                    
+
                     return $"{TextNote}";
                 }
                 else
                 {
-                    return $"{TextNote}".Substring(0,10);
+                    return $"{TextNote}".Substring(0, 15) + $"...";
                 }
             }
         }
 
-        public string FormattedDate
-        {
-            get { return Date.ToString("dd-MM-yyyy / hh:mm:ss"); }
-        }
+        public string FormattedDate => Date.ToString("dd-MM-yyyy / hh:mm:ss");
     }
 }

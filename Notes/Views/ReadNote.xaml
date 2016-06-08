@@ -6,7 +6,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:models="using:Notes.Models"
       xmlns:viewModels="using:Notes.ViewModels"
-      DataContext="{Binding MainViewModel,
+      DataContext="{Binding ReadViewModel,
                             Source={StaticResource Locator}}"
       mc:Ignorable="d">
 
