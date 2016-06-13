@@ -16,18 +16,18 @@ namespace Notes.Views
         }
         public SearchViewModel ViewModel => DataContext as SearchViewModel;
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+       /* protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             ViewModel.LoadList();
             base.OnNavigatedTo(e);
-        }
+        }*/
 
-        public void Refresh()
+       /* public void Refresh()
         {
             Bindings.StopTracking();
 
             Bindings.Update();
-        }
+        }*/
 
     }
 }

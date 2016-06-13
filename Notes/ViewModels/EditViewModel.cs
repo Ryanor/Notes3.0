@@ -12,7 +12,7 @@ namespace Notes.ViewModels
 {
     public class EditViewModel : ViewModelBase
     {
-        private readonly NavigationService navigationService;
+        private readonly INavigationService navigationService;
         private readonly IDataService dataService;
         public IEnumerable<Note> EditNote;
         public string EditNoteTitle { get; set; }
@@ -24,9 +24,9 @@ namespace Notes.ViewModels
         public string ChangedNoteTitle { get; set; }
         public string ChangedNoteContent { get; set; }
 
-        public EditViewModel(IDataService _dataService)
+        public EditViewModel(IDataService _dataService, INavigationService navigationService)
         {
-            navigationService = new NavigationService();
+            this.navigationService = navigationService;
             this.dataService = _dataService;
           
         }

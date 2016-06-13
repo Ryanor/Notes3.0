@@ -10,7 +10,7 @@ namespace Notes.ViewModels
 {
     public class ReadViewModel : ViewModelBase
     {
-        private readonly NavigationService _navigationService;
+        private readonly INavigationService _navigationService;
         private readonly IDataService dataService;
         private readonly SettingsViewModel settings;
 
@@ -18,10 +18,9 @@ namespace Notes.ViewModels
 
         public ObservableCollection<Note> ReadList { get; set; }
 
-        public ReadViewModel(IDataService _dataService, SettingsViewModel settings)
+        public ReadViewModel(IDataService _dataService, SettingsViewModel settings, INavigationService navigationService)
         {
-            _navigationService = new NavigationService();
-            _navigationService.Configure("EditNote", typeof(EditNote));
+            _navigationService = navigationService;
             this.dataService = _dataService;
             this.settings = settings;
         }

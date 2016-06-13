@@ -26,7 +26,7 @@
                      PlaceholderText="Your note here..."
                      Text="{x:Bind ViewModel.EditNoteContent, Mode=TwoWay}"
                      TextWrapping="Wrap" />
-            <TextBox x:Name="BoxForTime" Text="{x:Bind ViewModel.EditNoteDate, Mode=TwoWay}" />
+            <TextBlock x:Name="BoxForTime" Text="{x:Bind ViewModel.EditNoteDate, Mode=OneTime}" />
         </StackPanel>
         <Grid Margin="0,100,0,0" VerticalAlignment="Center">
             <Grid.ColumnDefinitions>

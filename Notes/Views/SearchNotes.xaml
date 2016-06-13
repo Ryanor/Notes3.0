@@ -1,6 +1,7 @@
 ﻿<Page x:Class="Notes.Views.SearchNotes"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:converter="using:Notes.Converter"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:Notes.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -8,7 +9,9 @@
       DataContext="{Binding SearchViewModel,
                             Source={StaticResource Locator}}"
       mc:Ignorable="d">
-
+    <Page.Resources>
+        <converter:ObjectConverter x:Key="Converter" />
+    </Page.Resources>
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="ms-appx:///Assets/Da_Vinci.png" Stretch="Fill" />
@@ -31,7 +34,7 @@
                      PlaceholderText="Your parameters here..."
                      Text="{Binding SearchString,
                                     Mode=TwoWay,
-                                    UpdateSourceTrigger=Explicit}" />
+                                    UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Margin="30,0,0,0"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Center"
@@ -44,9 +47,16 @@
                        FontSize="22"
                        Text="To:" />
             <DatePicker HorizontalAlignment="Center" Date="{Binding ToDateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-            <ListView Height="300"
+            <ToggleSwitch x:Name="toggleSwitch"
+                          Margin="0,20"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"
+                          Header="Search by Date"
+                          IsOn="{x:Bind ViewModel.IsSearchByDate, Mode=TwoWay}" />
+            <ListView Height="200"
                       ItemContainerStyle="{StaticResource StretchedItemStyle}"
-                      ItemsSource="{x:Bind ViewModel.ReadList, Mode=OneWay}">
+                      ItemsSource="{x:Bind ViewModel.ReadList, Mode=OneWay}"
+                      SelectedItem="{x:Bind ViewModel.SelectedNote, Mode=TwoWay, Converter={StaticResource Converter}}">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="models:Note">
                         <Grid>
@@ -91,6 +101,7 @@
                         Content="Delete Note"
                         IsEnabled="{x:Bind ViewModel.IsNoteSelected, Mode=OneWay}" />
             </Grid>
+
         </StackPanel>
     </Grid>
 </Page>

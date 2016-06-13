@@ -17,14 +17,14 @@ namespace Notes.ViewModels
 
     public class CreateViewModel : ViewModelBase
     {
-        private readonly NavigationService _navigationService;
+        private readonly INavigationService _navigationService;
         private readonly IDataService dataService;
 
 
-        public CreateViewModel(IDataService _dataService)
+        public CreateViewModel(IDataService _dataService, INavigationService navigationService)
         {
             
-            _navigationService = new NavigationService();
+            this._navigationService = navigationService;
             this.dataService = _dataService;
         }
 

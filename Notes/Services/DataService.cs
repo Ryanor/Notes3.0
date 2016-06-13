@@ -23,6 +23,11 @@ namespace Notes.Services
             _notes.Remove(note);
         }
 
+        public void ClearNotes()
+        {
+            _notes.Clear();
+        }
+
         public IEnumerable<Note> GetAllNotes()
         {
             return _notes;

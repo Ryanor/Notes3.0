@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace Notes.ViewModels
 {
     public class SettingsViewModel : ViewModelBase
     {
-        private readonly NavigationService _navigationService;
+        private readonly INavigationService _navigationService;
         private readonly IDataService dataService;
         private readonly IStorageService storageService;
 
@@ -36,35 +37,35 @@ namespace Notes.ViewModels
         }
         
 
-        public SettingsViewModel(IDataService _dataService, IStorageService storageService)
+        public SettingsViewModel(IDataService _dataService, IStorageService storageService, INavigationService navigationService)
         {
-            _navigationService = new NavigationService();
+            this._navigationService = navigationService;
             this.dataService = _dataService;
             this.storageService = storageService;
+            Load();
         }
 
 
         public void Save()
         {
-           /* storageService.Write(nameof(NumberOfNotes), NumberOfNotes);
+            storageService.Write(nameof(NumberOfNotes), NumberOfNotes);
             storageService.Write(nameof(IsSortAscending), IsSortAscending);
 
             var notes = dataService.GetAllNotes();
-            foreach (var note in notes)
-            {
-                storageService.Write(nameof(note), note);
-            }*/
+            storageService.Write("notes", notes);
         }
 
         public void Load()
         {
-          /*  NumberOfNotes = storageService.Read<int>(nameof(NumberOfNotes), 5);
-            IsSortAscending = storageService.Read<bool>(nameof(IsSortAscending), true);
+            dataService.ClearNotes();
 
-            while (!storageService.Equals(null))
+            NumberOfNotes = storageService.Read<int>(nameof(NumberOfNotes), 1);
+            IsSortAscending = storageService.Read<bool>(nameof(IsSortAscending), true);
+            ObservableCollection<Note> notes = storageService.Read<ObservableCollection<Note>>("notes",new ObservableCollection<Note>());
+            foreach (var note in notes)
             {
-                dataService.SaveNote(storageService.Read<Note>(nameof(Note), new Note("Hallo","Hallo",DateTime.Now)));
-            }*/
+                dataService.SaveNote(note);
+            }
         }
     }
 }

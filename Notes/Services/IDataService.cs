@@ -13,5 +13,6 @@ namespace Notes.Services
 
         void SaveNote(Note note);
         void DeleteNote(Note note);
+        void ClearNotes();
     }
 }
