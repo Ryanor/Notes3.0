@@ -82,10 +82,14 @@
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="0"
                         HorizontalAlignment="Center"
-                        Content="Edit Note" />
+                        Click="{x:Bind ViewModel.NavigateToPage6}"
+                        Content="Edit Note"
+                        IsEnabled="{x:Bind ViewModel.IsNoteSelected, Mode=OneWay}" />
                 <Button Grid.Column="1"
                         HorizontalAlignment="Center"
-                        Content="Delete Note" />
+                        Click="{x:Bind ViewModel.DeleteNote}"
+                        Content="Delete Note"
+                        IsEnabled="{x:Bind ViewModel.IsNoteSelected, Mode=OneWay}" />
             </Grid>
         </StackPanel>
     </Grid>

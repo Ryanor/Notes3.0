@@ -53,9 +53,6 @@ namespace Notes.ViewModels
                         if (confirmed)
                         {
                             dataService.DeleteNote(EditedNote);
-                           /* EditedNote.NoteTitle = EditNoteTitle;
-                            EditedNote.NoteContent = EditNoteContent;
-                            EditedNote.Date = EditNoteDate;*/
                             dataService.SaveNote(new Note(EditNoteTitle, EditNoteContent,EditNoteDate));
                             navigationService.GoBack();
                         }

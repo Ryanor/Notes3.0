@@ -44,6 +44,29 @@ namespace Notes.ViewModels
             ReadList = new ObservableCollection<Note>(getnotes);
         }
 
+        public Note SelectedNote { get; set; }
+        public bool IsNoteSelected => SelectedNote != null;
+
+        public void NavigateToPage6()
+        {
+            _navigationService.NavigateTo("EditNote", SelectedNote);
+        }
+
+        public void DeleteNote()
+        {
+
+            DialogService dialog = new DialogService();
+            dialog.ShowMessage("Do you really want to delete the selected note?", "Delete selected note!", "YES, delete", "NO, let me return",
+                confirmed =>
+                {
+                    if (confirmed)
+                    {
+                        dataService.DeleteNote(SelectedNote);
+                    }
+
+                });
+        }
+
         public void NavigateBack()
         {
             _navigationService.GoBack();
