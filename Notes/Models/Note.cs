@@ -10,16 +10,15 @@ namespace Notes.Models
     public class Note
     {
         public string NoteTitle { get; set; }
-        public string TextNote { get; set; }
+        public string NoteContent { get; set; }
         public DateTime Date { get; set; }
 
-        public Note(string noteTitle, string textNote, DateTime date)
+        public Note(string noteTitle, string noteContent, DateTime date)
         {
             this.NoteTitle = noteTitle;
-            this.TextNote = textNote;
+            this.NoteContent = noteContent;
             this.Date = date;
         }
-
 
         public string Title
         {
@@ -40,14 +39,14 @@ namespace Notes.Models
         {
             get
             {
-                if (TextNote.Length <= 15)
+                if (NoteContent.Length <= 15)
                 {
 
-                    return $"{TextNote}";
+                    return $"{NoteContent}";
                 }
                 else
                 {
-                    return $"{TextNote}".Substring(0, 15) + $"...";
+                    return $"{NoteContent}".Substring(0, 15) + $"...";
                 }
             }
         }

@@ -95,14 +95,26 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converter\BoolToNullableConverter.cs" />
     <Compile Include="Converter\IntegerToDoublerConverter.cs" />
+    <Compile Include="Converter\ObjectConverter.cs" />
     <Compile Include="Models\Note.cs" />
+    <Compile Include="Services\DataService.cs" />
+    <Compile Include="Services\IDataService.cs" />
+    <Compile Include="Services\IStorageService.cs" />
+    <Compile Include="Services\StorageService.cs" />
     <Compile Include="ViewModels\CreateViewModel.cs" />
+    <Compile Include="ViewModels\EditViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ReadViewModel.cs" />
+    <Compile Include="ViewModels\SearchViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="Views\CreateNote.xaml.cs">
       <DependentUpon>CreateNote.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditNote.xaml.cs">
+      <DependentUpon>EditNote.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -149,6 +161,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Views\CreateNote.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EditNote.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

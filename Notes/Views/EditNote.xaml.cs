@@ -1,26 +1,23 @@
 ﻿using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
 using Notes.ViewModels;
-
+using Windows.UI.Xaml.Navigation;
+using Notes.Models;
 
 namespace Notes.Views
 {
-   
-    public sealed partial class ReadNote : Page
+    
+    public sealed partial class EditNote : Page
     {
-        
-
-        public ReadNote()
+        public EditNote()
         {
             this.InitializeComponent();
         }
 
-        public ReadViewModel ViewModel => DataContext as ReadViewModel;
-
+        EditViewModel ViewModel => DataContext as EditViewModel;
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            ViewModel.LoadList();
+            ViewModel.LoadNote(e.Parameter);
             base.OnNavigatedTo(e);
         }
     }

@@ -5,11 +5,12 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:Notes.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      DataContext="{Binding MainViewModel,
+      DataContext="{Binding SettingsViewModel,
                             Source={StaticResource Locator}}"
       mc:Ignorable="d">
     <Page.Resources>
         <converter:IntegerToDoublerConverter x:Key="DoubleToIntegerConverter" />
+        <converter:BoolToNullableConverter x:Key="BoolToNullableConverter" />
     </Page.Resources>
     <Grid>
         <Grid.Background>
@@ -33,12 +34,38 @@
                     Margin="10,0,0,0"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Maximum="{Binding AllNotes.Count,
+                    Maximum="{Binding MaximumNumberOfNotes,
                                       Mode=OneWay,
                                       Converter={StaticResource DoubleToIntegerConverter}}"
-                    Minimum="1"
-                    Value="{x:Bind MainViewModel.NumberOfNotes, Mode=TwoWay}" />
+                    Minimum="0"
+                    Value="{Binding NumberOfNotes,
+                                    Mode=TwoWay,
+                                    Converter={StaticResource DoubleToIntegerConverter}}" />
+            <Grid Margin="0,50,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="6*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0"
+                           HorizontalAlignment="Center"
+                           FontSize="22"
+                           Text="Notes in ascending order" />
+                <CheckBox Grid.Column="1" IsChecked="{Binding IsSortAscending, Mode=TwoWay, Converter={StaticResource BoolToNullableConverter}}" />
+            </Grid>
         </StackPanel>
-
+        <Grid Margin="0,0,0,70" VerticalAlignment="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0"
+                    HorizontalAlignment="Center"
+                    Click="{x:Bind ViewModel.Load}"
+                    Content="Load Notes" />
+            <Button Grid.Column="1"
+                    HorizontalAlignment="Center"
+                    Click="{x:Bind ViewModel.Save}"
+                    Content="Save Notes" />
+        </Grid>
     </Grid>
 </Page>

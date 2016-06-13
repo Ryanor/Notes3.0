@@ -28,7 +28,7 @@ namespace Notes.Views
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             _dispatcherTimer.Start();
-            ((Application)Application.Current).OnBackRequested += OnOnBackRequested;
+            ((App)App.Current).OnBackRequested += OnOnBackRequested;
         }
 
         private void dispatcherTimer_Tick(object sender, object e)
@@ -40,8 +40,10 @@ namespace Notes.Views
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             _dispatcherTimer.Stop();
-            ((Application)Application.Current).OnBackRequested -= OnOnBackRequested;
+            ((App)App.Current).OnBackRequested -= OnOnBackRequested;
         }
+
+        /* Code for this method is in the App.xaml.cs*/
 
         private void OnOnBackRequested(object sender, BackRequestedEventArgs backRequestedEventArgs)
         {

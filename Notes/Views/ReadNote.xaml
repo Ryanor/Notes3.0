@@ -1,6 +1,7 @@
 ﻿<Page x:Class="Notes.Views.ReadNote"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:converter="using:Notes.Converter"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:Notes.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -9,7 +10,9 @@
       DataContext="{Binding ReadViewModel,
                             Source={StaticResource Locator}}"
       mc:Ignorable="d">
-
+    <Page.Resources>
+        <converter:ObjectConverter x:Key="Converter" />
+    </Page.Resources>
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="ms-appx:///Assets/Da_Vinci.png" Stretch="Fill" />
@@ -19,9 +22,10 @@
                        VerticalAlignment="Center"
                        FontSize="48"
                        Text="Read" />
-            <ListView Height="300"
+            <ListView Height="400"
                       ItemContainerStyle="{StaticResource StretchedItemStyle}"
-                      ItemsSource="{x:Bind ViewModel.ReadList, Mode=OneWay}">
+                      ItemsSource="{x:Bind ViewModel.ReadList, Mode=OneWay}"
+                      SelectedItem="{x:Bind ViewModel.SelectedNote, Mode=TwoWay, Converter={StaticResource Converter}}">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="models:Note">
                         <Grid>
@@ -50,7 +54,24 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
+            <Grid Margin="0,50,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0"
+                        HorizontalAlignment="Center"
+                        Click="{x:Bind ViewModel.NavigateToPage6, Mode=OneWay}"
+                        Content="Edit Note"
+                        IsEnabled="{x:Bind ViewModel.IsNoteSelected, Mode=OneWay}" />
+                <Button Grid.Column="1"
+                        HorizontalAlignment="Center"
+                        Click="{x:Bind ViewModel.DeleteNote, Mode=OneTime}"
+                        Content="Delete Note"
+                        IsEnabled="{x:Bind ViewModel.IsNoteSelected, Mode=OneWay}" />
+            </Grid>
         </StackPanel>
+
     </Grid>
 </Page>
 

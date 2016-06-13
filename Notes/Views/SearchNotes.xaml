@@ -4,7 +4,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:Notes.Views"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      DataContext="{Binding MainViewModel,
+      xmlns:models="using:Notes.Models"
+      DataContext="{Binding SearchViewModel,
                             Source={StaticResource Locator}}"
       mc:Ignorable="d">
 
@@ -18,24 +19,73 @@
                        VerticalAlignment="Center"
                        FontSize="48"
                        Text="Search" />
-            <Grid Margin="0,30,0,0">
+            <TextBlock x:Name="Searchby"
+                       Width="320"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="22"
+                       Text="Search Title or Content by:" />
+            <TextBox x:Name="search"
+                     Margin="30,0"
+                     VerticalAlignment="Center"
+                     PlaceholderText="Your parameters here..."
+                     Text="{Binding SearchString,
+                                    Mode=TwoWay,
+                                    UpdateSourceTrigger=Explicit}" />
+            <TextBlock Margin="30,0,0,0"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       FontSize="22"
+                       Text="From:" />
+            <DatePicker HorizontalAlignment="Center" Date="{Binding FromDateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Margin="30,0,0,0"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       FontSize="22"
+                       Text="To:" />
+            <DatePicker HorizontalAlignment="Center" Date="{Binding ToDateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+            <ListView Height="300"
+                      ItemContainerStyle="{StaticResource StretchedItemStyle}"
+                      ItemsSource="{x:Bind ViewModel.ReadList, Mode=OneWay}">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Note">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="0"
+                                       Grid.ColumnSpan="2"
+                                       FontSize="18"
+                                       FontWeight="Bold"
+                                       Text="{x:Bind NoteTitle}" />
+                            <TextBlock Grid.Row="1"
+                                       Grid.Column="0"
+                                       Text="{x:Bind NoteContext}" />
+                            <TextBlock Grid.Row="1"
+                                       Grid.Column="1"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Bottom"
+                                       Text="{x:Bind FormattedDate}" />
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="13*" />
-                    <ColumnDefinition Width="7*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <TextBlock x:Name="Searchby"
-                           Grid.ColumnSpan="2"
-                           Width="320"
-                           Margin="10,15,0,14"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           FontSize="22"
-                           Text="Search notes by:" />
-                <ComboBox x:Name="comboBox"
-                          Grid.Column="1"
-                          Width="100"
-                          HorizontalAlignment="Stretch"
-                          VerticalAlignment="Center" />
+                <Button Grid.Column="0"
+                        HorizontalAlignment="Center"
+                        Content="Edit Note" />
+                <Button Grid.Column="1"
+                        HorizontalAlignment="Center"
+                        Content="Delete Note" />
             </Grid>
         </StackPanel>
     </Grid>

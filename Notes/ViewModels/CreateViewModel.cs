@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Views;
 using Notes.Models;
+using Notes.Services;
 
 namespace Notes.ViewModels
 {
@@ -17,12 +18,14 @@ namespace Notes.ViewModels
     public class CreateViewModel : ViewModelBase
     {
         private readonly NavigationService _navigationService;
-        
+        private readonly IDataService dataService;
 
-        public CreateViewModel()
+
+        public CreateViewModel(IDataService _dataService)
         {
             
             _navigationService = new NavigationService();
+            this.dataService = _dataService;
         }
 
         public string NewTextTitle { get; set; }
@@ -30,13 +33,14 @@ namespace Notes.ViewModels
 
         public void SaveNewNote()
         {
-            if (!String.IsNullOrEmpty(NewTextTitle))
+            if (!String.IsNullOrEmpty(NewTextTitle) && !String.IsNullOrEmpty(NewTextNote))
             {
-                var vm = (new ViewModelLocator()).MainViewModel;
-                vm.AllNotes.Add(new Note(NewTextTitle, NewTextNote, DateTime.Now));
-                _navigationService.GoBack();
+                var note = new Note(NewTextTitle, NewTextNote, DateTime.Now);
+                dataService.SaveNote(note);
                 NewTextTitle = String.Empty;
                 NewTextNote = String.Empty;
+                _navigationService.GoBack();
+               
             }
         }
 

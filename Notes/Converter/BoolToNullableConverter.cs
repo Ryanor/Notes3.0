@@ -3,16 +3,16 @@ using Windows.UI.Xaml.Data;
 
 namespace Notes.Converter
 {
-    public class IntegerToDoublerConverter : IValueConverter
+    class BoolToNullableConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            return (double) (int) value;
+            return (bool)(bool)value;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
-            return (int) (double) value;
+            return (bool)(bool)value;
         }
     }
 }

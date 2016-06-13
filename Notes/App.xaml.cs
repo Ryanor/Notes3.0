@@ -22,13 +22,13 @@ namespace Notes
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
-    sealed partial class Application : Windows.UI.Xaml.Application
+    sealed partial class App : Windows.UI.Xaml.Application
     {
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
-        public Application()
+        public App()
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
@@ -68,6 +68,9 @@ namespace Notes
 
                 SystemNavigationManager.GetForCurrentView().BackRequested += AppBackRequested;
 
+                //
+                // Implementation of the Back Button in application
+                // 
                 rootFrame.Navigated += (sender, arg) =>
                 {
                     SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility
@@ -90,6 +93,9 @@ namespace Notes
             }
         }
 
+        //
+        /* OnBackRequested implemented by us for the Navigation Back Button */
+        //
         public event EventHandler<BackRequestedEventArgs> OnBackRequested;
 
         private void AppBackRequested(object sender, BackRequestedEventArgs e)
