@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using Windows.UI.Core;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Notes.ViewModels;
 
@@ -16,18 +17,6 @@ namespace Notes.Views
         }
         public SearchViewModel ViewModel => DataContext as SearchViewModel;
 
-       /* protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            ViewModel.LoadList();
-            base.OnNavigatedTo(e);
-        }*/
-
-       /* public void Refresh()
-        {
-            Bindings.StopTracking();
-
-            Bindings.Update();
-        }*/
 
     }
 }

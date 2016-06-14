@@ -19,12 +19,16 @@
                        Text="Edit" />
             <TextBox x:Name="Title"
                      PlaceholderText="Title"
-                     Text="{x:Bind ViewModel.EditNoteTitle, Mode=TwoWay}" />
+                     Text="{Binding EditNoteTitle,
+                                    Mode=TwoWay,
+                                    UpdateSourceTrigger=PropertyChanged}" />
             <TextBox x:Name="Note"
                      Height="200"
                      AcceptsReturn="True"
                      PlaceholderText="Your note here..."
-                     Text="{x:Bind ViewModel.EditNoteContent, Mode=TwoWay}"
+                     Text="{Binding EditNoteContent,
+                                    Mode=TwoWay,
+                                    UpdateSourceTrigger=PropertyChanged}"
                      TextWrapping="Wrap" />
             <TextBlock x:Name="BoxForTime" Text="{x:Bind ViewModel.EditNoteDate, Mode=OneTime}" />
         </StackPanel>
