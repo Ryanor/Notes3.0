@@ -34,13 +34,13 @@ namespace Notes.ViewModels
         public void LoadNote(object note)
         {
             EditedNote = dataService.GetAllNotes().Single(n => n.Equals(note));
-            ChangedNoteContent = EditNoteTitle = EditedNote.NoteTitle;
+            ChangedNoteTitle = EditNoteTitle = EditedNote.NoteTitle;
             ChangedNoteContent = EditNoteContent = EditedNote.NoteContent;
             EditNoteDate = EditedNote.Date;
         }
 
         public bool HasNoteChanged
-            => !(EditNoteTitle.Equals(ChangedNoteTitle) && EditNoteContent.Equals(ChangedNoteContent));
+            => (!EditNoteTitle.Equals(ChangedNoteTitle) || !EditNoteContent.Equals(ChangedNoteContent));
 
         public void SaveEditedNote()
         {

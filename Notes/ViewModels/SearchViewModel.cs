@@ -21,7 +21,7 @@ namespace Notes.ViewModels
         public string SearchString { get; set; }
         public DateTimeOffset FromDateTime { get; set; }
         public DateTimeOffset ToDateTime { get; set; }
-
+         
         public IEnumerable<Note> ReadList
         {
             get
@@ -51,35 +51,8 @@ namespace Notes.ViewModels
             SearchString = String.Empty;
             FromDateTime = new DateTimeOffset(DateTime.Now.AddDays(-14));
             ToDateTime = new DateTimeOffset(DateTime.Now);
-
-           /* this.PropertyChanged += (sender, args) =>
-            {
-                if (args.PropertyName == SearchString || args.PropertyName == ToDateTime ||
-                    args.PropertyName == FromDateTime)
-                {
-                    LoadList();
-                }
-            };*/
-
         }
 
-        /*public void LoadList()
-        {
-            var getnotes = dataService.GetAllNotes();
-
-            if (IsSearchByDate)
-            {
-                getnotes = getnotes.Where(n => n.Date >= FromDateTime && n.Date <= ToDateTime);
-            }
-            else
-            {
-                getnotes = getnotes.Where(n => n.NoteTitle.Contains(SearchString) || n.NoteContent.Contains(SearchString));
-            }
-            
-            getnotes = (settings.IsSortAscending) ? getnotes.OrderBy(n => n.Date) 
-                                                  : getnotes.OrderByDescending(n => n.Date);
-            ReadList = new ObservableCollection<Note>(getnotes);
-        }*/
 
         public bool IsSearchByDate { get; set; }
 
