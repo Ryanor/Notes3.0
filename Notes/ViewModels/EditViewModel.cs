@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Windows.Devices.Geolocation;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Views;
+using GalaSoft.MvvmLight.Messaging;
 using Notes.Models;
 using Notes.Services;
+using Windows.UI.Xaml.Controls.Maps;
+using Windows.Storage.Streams;
 
 namespace Notes.ViewModels
 {
@@ -14,10 +18,13 @@ namespace Notes.ViewModels
     {
         private readonly INavigationService navigationService;
         private readonly IDataService dataService;
-        public IEnumerable<Note> EditNote;
+
+       // public IEnumerable<Note> EditNote;
         public string EditNoteTitle { get; set; }
         public string EditNoteContent { get; set; }
         public DateTime EditNoteDate { get; set; }
+        public Geopoint EditNoteLocation { get; set; }
+        
 
         private Note EditedNote;
 
@@ -37,7 +44,41 @@ namespace Notes.ViewModels
             ChangedNoteTitle = EditNoteTitle = EditedNote.NoteTitle;
             ChangedNoteContent = EditNoteContent = EditedNote.NoteContent;
             EditNoteDate = EditedNote.Date;
+            EditNoteLocation = new Geopoint(new BasicGeoposition()
+            {
+                Longitude = EditedNote.Longitude,
+                Latitude = EditedNote.Latitude
+                    
+            });
         }
+
+        public Geopoint Center { get; set; } = new Geopoint(new BasicGeoposition() { Longitude = 20.0, Latitude = 10.0 });
+        public double Zoomlevel { get; set; } = 5.0;
+
+       
+
+        public async void LoadLocation()
+        {
+            var access = await Geolocator.RequestAccessAsync();
+
+            switch (access)
+            {
+                case GeolocationAccessStatus.Allowed:
+
+                    var geolocator = new Geolocator();
+                    var geopositon = await geolocator.GetGeopositionAsync();
+                    var geopoint = geopositon.Coordinate.Point;
+
+                    Center = EditNoteLocation;
+                    Zoomlevel = 5;
+                    break;
+
+                case GeolocationAccessStatus.Unspecified:
+                case GeolocationAccessStatus.Denied:
+                    break;
+            }
+        }
+
 
         public bool HasNoteChanged
             => (!EditNoteTitle.Equals(ChangedNoteTitle) || !EditNoteContent.Equals(ChangedNoteContent));
@@ -53,7 +94,7 @@ namespace Notes.ViewModels
                         if (confirmed)
                         {
                             dataService.DeleteNote(EditedNote);
-                            dataService.SaveNote(new Note(EditNoteTitle, EditNoteContent,EditNoteDate));
+                            dataService.SaveNote(new Note(EditNoteTitle, EditNoteContent,EditNoteDate, EditNoteLocation));
                             navigationService.GoBack();
                         }
                     });
@@ -95,4 +136,5 @@ namespace Notes.ViewModels
            
         }
     }
+
 }

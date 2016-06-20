@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="using:Notes.Views"
+      xmlns:maps="using:Windows.UI.Xaml.Controls.Maps"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       DataContext="{Binding EditViewModel,
                             Source={StaticResource Locator}}"
@@ -18,21 +19,35 @@
                        FontSize="48"
                        Text="Edit" />
             <TextBox x:Name="Title"
+                     Margin="20,0"
                      PlaceholderText="Title"
                      Text="{Binding EditNoteTitle,
                                     Mode=TwoWay,
                                     UpdateSourceTrigger=PropertyChanged}" />
             <TextBox x:Name="Note"
                      Height="200"
+                     Margin="20,0"
                      AcceptsReturn="True"
                      PlaceholderText="Your note here..."
                      Text="{Binding EditNoteContent,
                                     Mode=TwoWay,
                                     UpdateSourceTrigger=PropertyChanged}"
                      TextWrapping="Wrap" />
-            <TextBlock x:Name="BoxForTime" Text="{x:Bind ViewModel.EditNoteDate, Mode=OneTime}" />
+            <TextBlock x:Name="BoxForTime"
+                       Margin="20,0"
+                       Text="{x:Bind ViewModel.EditNoteDate, Mode=OneTime}" />
+            <maps:MapControl Height="230"
+                             Margin="0,20,0,0"
+                             Center="{x:Bind ViewModel.EditNoteLocation, Mode=OneWay}"
+                             ZoomLevel="{x:Bind ViewModel.Zoomlevel, Mode=TwoWay}">
+                <maps:MapItemsControl>
+                    <Grid maps:MapControl.Location="{x:Bind ViewModel.EditNoteLocation}" maps:MapControl.NormalizedAnchorPoint="0.5 1">
+                        <Image Source="ms-appx:///Assets/pin.png" />
+                    </Grid>
+                </maps:MapItemsControl>
+            </maps:MapControl>
         </StackPanel>
-        <Grid Margin="0,100,0,0" VerticalAlignment="Center">
+        <Grid Margin="0,0,0,30" VerticalAlignment="Bottom">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />

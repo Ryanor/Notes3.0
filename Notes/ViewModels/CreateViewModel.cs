@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Devices.Geolocation;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Views;
 using Notes.Models;
@@ -20,7 +21,6 @@ namespace Notes.ViewModels
         private readonly INavigationService _navigationService;
         private readonly IDataService dataService;
 
-
         public CreateViewModel(IDataService _dataService, INavigationService navigationService)
         {
             
@@ -30,17 +30,36 @@ namespace Notes.ViewModels
 
         public string NewTextTitle { get; set; }
         public string NewTextNote { get; set; }
+        public Geopoint NewNoteLocation { get; set; }
 
-        public void SaveNewNote()
+        public async void SaveNewNote()
         {
             if (!String.IsNullOrEmpty(NewTextTitle) && !String.IsNullOrEmpty(NewTextNote))
             {
-                var note = new Note(NewTextTitle, NewTextNote, DateTime.Now);
+                var access = await Geolocator.RequestAccessAsync();
+
+                switch (access)
+                {
+                    case GeolocationAccessStatus.Allowed:
+
+                        var geolocator = new Geolocator();
+                        var geopositon = await geolocator.GetGeopositionAsync();
+                        var geopoint = geopositon.Coordinate.Point;
+                        NewNoteLocation = geopoint;
+
+                        break;
+
+                    case GeolocationAccessStatus.Unspecified:
+                    case GeolocationAccessStatus.Denied:
+                        break;
+                }
+
+                var note = new Note(NewTextTitle, NewTextNote, DateTime.Now, NewNoteLocation);
                 dataService.SaveNote(note);
                 NewTextTitle = String.Empty;
                 NewTextNote = String.Empty;
                 _navigationService.GoBack();
-               
+
             }
         }
 

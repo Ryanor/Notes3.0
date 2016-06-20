@@ -30,15 +30,17 @@
                        FontSize="48"
                        Text="Create" />
             <TextBox x:Name="Title"
+                     Margin="20,0"
                      PlaceholderText="Title"
                      Text="{x:Bind ViewModel.NewTextTitle, Mode=TwoWay}" />
             <TextBox x:Name="Note"
                      Height="200"
+                     Margin="20,0"
                      AcceptsReturn="True"
                      PlaceholderText="Your note here..."
                      Text="{x:Bind ViewModel.NewTextNote, Mode=TwoWay}"
                      TextWrapping="Wrap" />
-            <TextBox x:Name="BoxForTime" />
+            <TextBlock x:Name="BoxForTime" Margin="20,0" />
         </StackPanel>
     </Grid>
 </Page>

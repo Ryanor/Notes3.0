@@ -145,6 +145,9 @@
     <Content Include="Assets\notes.scale-150.png" />
     <Content Include="Assets\notes.scale-200.png" />
     <Content Include="Assets\notes.scale-400.png" />
+    <Content Include="Assets\pin.png" />
+    <Content Include="Assets\pin_blue.png" />
+    <Content Include="Assets\pin_orange.png" />
     <Content Include="FodyWeavers.xml" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
