@@ -26,7 +26,7 @@ namespace Notes.ViewModels
         public Geopoint EditNoteLocation { get; set; }
         
 
-        private Note EditedNote;
+        public Note EditedNote;
 
         public string ChangedNoteTitle { get; set; }
         public string ChangedNoteContent { get; set; }
@@ -53,9 +53,10 @@ namespace Notes.ViewModels
         }
 
         public Geopoint Center { get; set; } = new Geopoint(new BasicGeoposition() { Longitude = 20.0, Latitude = 10.0 });
-        public double Zoomlevel { get; set; } = 5.0;
+        public double Zoomlevel { get; set; } = 12.0;
 
-       
+      
+
 
         public async void LoadLocation()
         {
@@ -70,7 +71,7 @@ namespace Notes.ViewModels
                     var geopoint = geopositon.Coordinate.Point;
 
                     Center = EditNoteLocation;
-                    Zoomlevel = 5;
+                    Zoomlevel = 15;
                     break;
 
                 case GeolocationAccessStatus.Unspecified:

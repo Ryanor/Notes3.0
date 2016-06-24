@@ -10,42 +10,44 @@
       mc:Ignorable="d">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="41*" />
-            <ColumnDefinition Width="79*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.Background>
             <ImageBrush ImageSource="ms-appx:///Assets/Da_Vinci.png" Stretch="Fill" />
         </Grid.Background>
         <TextBlock x:Name="TextTitle"
-                   Grid.ColumnSpan="2"
+                   Grid.ColumnSpan="3"
+                   Margin="117,0"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Top"
                    FontSize="48"
                    Text="Notes"
                    TextWrapping="Wrap" />
         <Button x:Name="ButtonNew"
-                Grid.Column="0"
+                Grid.Column="1"
                 Margin="10,100,0,0"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Top"
                 Click="{x:Bind ViewModel.NavigateToPage2}"
                 Content="New Note" />
         <Button x:Name="ButtonRead"
-                Grid.Column="0"
+                Grid.Column="1"
                 Margin="10,170,0,0"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Top"
                 Click="ButtonRead_Click"
                 Content="Read Note" />
         <Button x:Name="ButtonSearch"
-                Grid.Column="0"
+                Grid.Column="1"
                 Margin="10,240,0,0"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Top"
                 Click="ButtonSearch_Click"
                 Content="Search Note" />
         <Button x:Name="ButtonSettings"
-                Grid.Column="0"
+                Grid.Column="1"
                 Margin="10,310,0,0"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Top"

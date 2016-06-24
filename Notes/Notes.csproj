@@ -137,17 +137,18 @@
     <None Include="Notes_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\cs.png" />
+    <Content Include="Assets\blue-pin.png" />
     <Content Include="Assets\Da_Vinci.png" />
+    <Content Include="Assets\map-pin-th.png" />
     <Content Include="Assets\notes.png" />
     <Content Include="Assets\notes.scale-100.png" />
     <Content Include="Assets\notes.scale-125.png" />
     <Content Include="Assets\notes.scale-150.png" />
     <Content Include="Assets\notes.scale-200.png" />
     <Content Include="Assets\notes.scale-400.png" />
+    <Content Include="Assets\orange-pin-th.png" />
+    <Content Include="Assets\orange-pin.png" />
     <Content Include="Assets\pin.png" />
-    <Content Include="Assets\pin_blue.png" />
-    <Content Include="Assets\pin_orange.png" />
     <Content Include="FodyWeavers.xml" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />

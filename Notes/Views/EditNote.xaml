@@ -9,63 +9,126 @@
                             Source={StaticResource Locator}}"
       mc:Ignorable="d">
 
-    <Grid>
+
+    <Grid x:Name="EditPage">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="wide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="800" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="InputField.(Grid.Column)" Value="0" />
+                        <Setter Target="InputField.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="InputField.(Grid.RowSpan)" Value="2" />
+                        <Setter Target="MapField.(Grid.Column)" Value="1" />
+                        <Setter Target="MapField.(Grid.Row)" Value="0" />
+                        <Setter Target="MapField.(Grid.RowSpan)" Value="2" />
+                        <Setter Target="ButtonField.(Grid.Row)" Value="2" />
+                        <Setter Target="ButtonField.(Grid.Column)" Value="0" />
+
+                    </VisualState.Setters>
+
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="InputField.(Grid.Column)" Value="0" />
+                        <Setter Target="InputField.(Grid.ColumnSpan)" Value="2" />
+                        <Setter Target="MapField.(Grid.Column)" Value="0" />
+                        <Setter Target="MapField.(Grid.ColumnSpan)" Value="2" />
+                        <Setter Target="MapField.(Grid.Row)" Value="1" />
+                        <Setter Target="ButtonField.(Grid.Row)" Value="2" />
+                        <Setter Target="ButtonField.(Grid.ColumnSpan)" Value="2" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
         <Grid.Background>
             <ImageBrush ImageSource="ms-appx:///Assets/Da_Vinci.png" Stretch="Fill" />
         </Grid.Background>
-        <StackPanel>
-            <TextBlock HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       FontSize="48"
-                       Text="Edit" />
-            <TextBox x:Name="Title"
-                     Margin="20,0"
-                     PlaceholderText="Title"
-                     Text="{Binding EditNoteTitle,
-                                    Mode=TwoWay,
-                                    UpdateSourceTrigger=PropertyChanged}" />
-            <TextBox x:Name="Note"
-                     Height="200"
-                     Margin="20,0"
-                     AcceptsReturn="True"
-                     PlaceholderText="Your note here..."
-                     Text="{Binding EditNoteContent,
-                                    Mode=TwoWay,
-                                    UpdateSourceTrigger=PropertyChanged}"
-                     TextWrapping="Wrap" />
-            <TextBlock x:Name="BoxForTime"
-                       Margin="20,0"
-                       Text="{x:Bind ViewModel.EditNoteDate, Mode=OneTime}" />
-            <maps:MapControl Height="230"
-                             Margin="0,20,0,0"
+        <Grid x:Name="InputField">
+            <StackPanel Margin="20,20,20,0" VerticalAlignment="Top">
+                <TextBlock HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontSize="48"
+                           Text="Edit" />
+                <TextBox x:Name="Title"
+                         Margin="20,0"
+                         PlaceholderText="Title"
+                         Text="{Binding EditNoteTitle,
+                                        Mode=TwoWay,
+                                        UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox x:Name="Note"
+                         Height="280"
+                         Margin="20,0"
+                         AcceptsReturn="True"
+                         PlaceholderText="Your note here..."
+                         Text="{Binding EditNoteContent,
+                                        Mode=TwoWay,
+                                        UpdateSourceTrigger=PropertyChanged}"
+                         TextWrapping="Wrap" />
+                <TextBlock x:Name="BoxForTime"
+                           Margin="20,0"
+                           VerticalAlignment="Bottom"
+                           Text="{x:Bind ViewModel.EditNoteDate, Mode=OneTime}" />
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="MapField">
+            <maps:MapControl Margin="20,20,20,0"
                              Center="{x:Bind ViewModel.EditNoteLocation, Mode=OneWay}"
                              ZoomLevel="{x:Bind ViewModel.Zoomlevel, Mode=TwoWay}">
                 <maps:MapItemsControl>
                     <Grid maps:MapControl.Location="{x:Bind ViewModel.EditNoteLocation}" maps:MapControl.NormalizedAnchorPoint="0.5 1">
-                        <Image Source="ms-appx:///Assets/pin.png" />
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Image Grid.Row="0" Source="ms-appx:///Assets/blue-pin.png" />
+                        <TextBlock Grid.Row="1"
+                                   FontWeight="Bold"
+                                   Foreground="Black"
+                                   Text="{x:Bind ViewModel.EditedNote.Title}" />
                     </Grid>
                 </maps:MapItemsControl>
             </maps:MapControl>
-        </StackPanel>
-        <Grid Margin="0,0,0,30" VerticalAlignment="Bottom">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Button Grid.Column="0"
-                    HorizontalAlignment="Center"
-                    Click="{x:Bind ViewModel.SaveEditedNote}"
-                    Content="Save Note"
-                    IsEnabled="{x:Bind ViewModel.HasNoteChanged, Mode=OneWay}" />
-            <Button Grid.Column="1"
-                    HorizontalAlignment="Center"
-                    Click="{x:Bind ViewModel.DeleteEditedNote}"
-                    Content="Delete Note" />
-            <Button Grid.Column="2"
-                    HorizontalAlignment="Center"
-                    Click="{x:Bind ViewModel.NavigateBack}"
-                    Content="Cancel" />
         </Grid>
+        <Grid x:Name="ButtonField">
+            <Grid Margin="0,0,0,30" VerticalAlignment="Bottom">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0"
+                        HorizontalAlignment="Center"
+                        Click="{x:Bind ViewModel.SaveEditedNote}"
+                        Content="Save Note"
+                        IsEnabled="{x:Bind ViewModel.HasNoteChanged, Mode=OneWay}" />
+                <Button Grid.Column="1"
+                        HorizontalAlignment="Center"
+                        Click="{x:Bind ViewModel.DeleteEditedNote}"
+                        Content="Delete Note" />
+                <Button Grid.Column="2"
+                        HorizontalAlignment="Center"
+                        Click="{x:Bind ViewModel.NavigateBack}"
+                        Content="Cancel" />
+            </Grid>
+
+        </Grid>
+
     </Grid>
+
 </Page>
