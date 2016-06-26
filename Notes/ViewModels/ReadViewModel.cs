@@ -25,9 +25,9 @@ namespace Notes.ViewModels
             this.settings = settings;
         }
 
-        public void LoadList()
+        public async void LoadList()
         {
-            var getnotes = dataService.GetAllNotes();
+            var getnotes = await dataService.GetAllNotes();
 
             getnotes = (settings.IsSortAscending) ? getnotes.OrderBy(n => n.Date).Take(settings.NumberOfNotes)
                                                 : getnotes.OrderByDescending(n => n.Date).Take(settings.NumberOfNotes);
@@ -43,16 +43,16 @@ namespace Notes.ViewModels
             _navigationService.NavigateTo("EditNote",SelectedNote);
         }
 
-        public void DeleteNote()
+        public async void DeleteNote()
         {
 
             DialogService dialog = new DialogService();
-            dialog.ShowMessage("Do you really want to delete the selected note?", "Delete selected note!", "YES, delete", "NO, let me return",
-                confirmed =>
+            await dialog.ShowMessage("Do you really want to delete the selected note?", "Delete selected note!", "YES, delete", "NO, let me return",
+                async confirmed =>
                 {
                     if (confirmed)
                     {
-                        dataService.DeleteNote(SelectedNote);
+                        await dataService.DeleteNote(SelectedNote);
                     }
 
                 });

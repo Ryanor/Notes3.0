@@ -9,10 +9,10 @@ namespace Notes.Services
 {
     public interface IDataService
     {
-        IEnumerable<Note> GetAllNotes();
-
-        void SaveNote(Note note);
-        void DeleteNote(Note note);
-        void ClearNotes();
+        Task <IEnumerable<Note>> GetAllNotes();
+        Task AddNote(Note note);
+        Task SaveNote(Note note);
+        Task DeleteNote(Note note);
+        
     }
 }

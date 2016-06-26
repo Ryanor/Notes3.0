@@ -5,22 +5,32 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Devices.Geolocation;
 using GalaSoft.MvvmLight;
+using Newtonsoft.Json;
 
 namespace Notes.Models
 {
-    public class Note
+    public class Note : ObservableObject
     {
-        public string NoteTitle { get; set; }
-        public string NoteContent { get; set; }
+        public int Id { get; set; }
+        
+        public string Title { get; set; }
+
+        
+        public string Content { get; set; }
+
+        [JsonProperty("CreatedAt")]
         public DateTime Date { get; set; }
+
         public double Longitude { get; set; } = 20;
+
         public double Latitude { get; set; } = 20;
 
+        
 
         public Note(string noteTitle, string noteContent, DateTime date, Geopoint geopoint)
         {
-            this.NoteTitle = noteTitle;
-            this.NoteContent = noteContent;
+            this.Title = noteTitle;
+            this.Content = noteContent;
             this.Date = date;
             if (geopoint != null)
             {
@@ -31,17 +41,17 @@ namespace Notes.Models
         }
     
 
- public string Title
+ public string NoteTitle
         {
             get
             {
-                if (NoteTitle.Length <= 15)
+                if (Title.Length <= 15)
                 {
-                    return $"{NoteTitle}";
+                    return $"{Title}";
                 }
                 else
                 {
-                    return $"{NoteTitle}".Substring(0, 15) + $"...";
+                    return $"{Title}".Substring(0, 15) + $"...";
                 }
             }
         }
@@ -50,14 +60,14 @@ namespace Notes.Models
         {
             get
             {
-                if (NoteContent.Length <= 15)
+                if (Content.Length <= 15)
                 {
 
-                    return $"{NoteContent}";
+                    return $"{Content}";
                 }
                 else
                 {
-                    return $"{NoteContent}".Substring(0, 15) + $"...";
+                    return $"{Content}".Substring(0, 15) + $"...";
                 }
             }
         }

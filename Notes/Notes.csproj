@@ -99,6 +99,7 @@
     <Compile Include="Converter\IntegerToDoublerConverter.cs" />
     <Compile Include="Converter\ObjectConverter.cs" />
     <Compile Include="Models\Note.cs" />
+    <Compile Include="Services\CloudDataService.cs" />
     <Compile Include="Services\DataService.cs" />
     <Compile Include="Services\IDataService.cs" />
     <Compile Include="Services\IStorageService.cs" />

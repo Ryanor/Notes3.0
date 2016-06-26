@@ -21,7 +21,7 @@ namespace Notes.ViewModels
             SimpleIoc.Default.Register<EditViewModel>();
 
             // Implemting the DataService and StorageService to every viewmodel as dependency injection
-            SimpleIoc.Default.Register<IDataService, DataService>();
+            SimpleIoc.Default.Register<IDataService, CloudDataService>();
             SimpleIoc.Default.Register<IStorageService, StorageService>();
             SimpleIoc.Default.Register<INavigationService>(RegisterNavigationService);
         }

@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Collections.ObjectModel;
-using System.Linq;
 using Windows.Devices.Geolocation;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Views;
-using GalaSoft.MvvmLight.Messaging;
 using Notes.Models;
 using Notes.Services;
-using Windows.UI.Xaml.Controls.Maps;
-using Windows.Storage.Streams;
 
 namespace Notes.ViewModels
 {
@@ -19,44 +12,27 @@ namespace Notes.ViewModels
         private readonly INavigationService navigationService;
         private readonly IDataService dataService;
 
-       // public IEnumerable<Note> EditNote;
-        public string EditNoteTitle { get; set; }
-        public string EditNoteContent { get; set; }
-        public DateTime EditNoteDate { get; set; }
-        public Geopoint EditNoteLocation { get; set; }
-        
+        // Note Note is the selected note from the read note or the search note view
+        public Note Note { get; set; }
 
-        public Note EditedNote;
-
-        public string ChangedNoteTitle { get; set; }
-        public string ChangedNoteContent { get; set; }
 
         public EditViewModel(IDataService _dataService, INavigationService navigationService)
         {
             this.navigationService = navigationService;
             this.dataService = _dataService;
-          
+
+            PropertyChanged += (sender, args) =>
+            {
+                if (args.PropertyName == nameof(Note))
+                {
+                    Note.PropertyChanged += (s, e) => HasNoteChanged = true;
+                }
+            };
         }
 
-        public void LoadNote(object note)
-        {
-            EditedNote = dataService.GetAllNotes().Single(n => n.Equals(note));
-            ChangedNoteTitle = EditNoteTitle = EditedNote.NoteTitle;
-            ChangedNoteContent = EditNoteContent = EditedNote.NoteContent;
-            EditNoteDate = EditedNote.Date;
-            EditNoteLocation = new Geopoint(new BasicGeoposition()
-            {
-                Longitude = EditedNote.Longitude,
-                Latitude = EditedNote.Latitude
-                    
-            });
-        }
 
         public Geopoint Center { get; set; } = new Geopoint(new BasicGeoposition() { Longitude = 20.0, Latitude = 10.0 });
         public double Zoomlevel { get; set; } = 12.0;
-
-      
-
 
         public async void LoadLocation()
         {
@@ -70,7 +46,8 @@ namespace Notes.ViewModels
                     var geopositon = await geolocator.GetGeopositionAsync();
                     var geopoint = geopositon.Coordinate.Point;
 
-                    Center = EditNoteLocation;
+                    Center = new Geopoint(new BasicGeoposition() { Latitude = Note.Latitude, Longitude = Note.Longitude });
+                        
                     Zoomlevel = 15;
                     break;
 
@@ -81,8 +58,8 @@ namespace Notes.ViewModels
         }
 
 
-        public bool HasNoteChanged
-            => (!EditNoteTitle.Equals(ChangedNoteTitle) || !EditNoteContent.Equals(ChangedNoteContent));
+        public bool HasNoteChanged { get; set; }
+            
 
         public void SaveEditedNote()
         {
@@ -90,12 +67,11 @@ namespace Notes.ViewModels
             {
                 DialogService dialog = new DialogService();
                 dialog.ShowMessage("Save changes to note?", "Save changes", "YES, save", "NO, let me return",
-                    confirmed =>
+                    async confirmed =>
                     {
                         if (confirmed)
                         {
-                            dataService.DeleteNote(EditedNote);
-                            dataService.SaveNote(new Note(EditNoteTitle, EditNoteContent,EditNoteDate, EditNoteLocation));
+                            await dataService.SaveNote(Note);
                             navigationService.GoBack();
                         }
                     });
@@ -106,11 +82,11 @@ namespace Notes.ViewModels
         {
             DialogService dialog = new DialogService();
             dialog.ShowMessage("Do you really want to delete the selected note?", "Delete selected note!", "YES, delete", "NO, let me return",
-                confirmed =>
+                async confirmed =>
                 {
                     if (confirmed)
                     {
-                        dataService.DeleteNote(EditedNote);
+                        await dataService.DeleteNote(Note);
                         navigationService.GoBack();
                     }
                 }); 

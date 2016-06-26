@@ -68,7 +68,7 @@
                 <TextBox x:Name="Title"
                          Margin="20,0"
                          PlaceholderText="Title"
-                         Text="{Binding EditNoteTitle,
+                         Text="{Binding Note.NoteTitle,
                                         Mode=TwoWay,
                                         UpdateSourceTrigger=PropertyChanged}" />
                 <TextBox x:Name="Note"
@@ -76,22 +76,22 @@
                          Margin="20,0"
                          AcceptsReturn="True"
                          PlaceholderText="Your note here..."
-                         Text="{Binding EditNoteContent,
+                         Text="{Binding Note.NoteContent,
                                         Mode=TwoWay,
                                         UpdateSourceTrigger=PropertyChanged}"
                          TextWrapping="Wrap" />
                 <TextBlock x:Name="BoxForTime"
                            Margin="20,0"
                            VerticalAlignment="Bottom"
-                           Text="{x:Bind ViewModel.EditNoteDate, Mode=OneTime}" />
+                           Text="{x:Bind ViewModel.Note.Date, Mode=OneTime}" />
             </StackPanel>
         </Grid>
         <Grid x:Name="MapField">
             <maps:MapControl Margin="20,20,20,0"
-                             Center="{x:Bind ViewModel.EditNoteLocation, Mode=OneWay}"
+                             Center="{x:Bind ViewModel.Center, Mode=OneWay}"
                              ZoomLevel="{x:Bind ViewModel.Zoomlevel, Mode=TwoWay}">
                 <maps:MapItemsControl>
-                    <Grid maps:MapControl.Location="{x:Bind ViewModel.EditNoteLocation}" maps:MapControl.NormalizedAnchorPoint="0.5 1">
+                    <Grid maps:MapControl.Location="{x:Bind ViewModel.Center}" maps:MapControl.NormalizedAnchorPoint="0.5 1">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
                             <RowDefinition Height="*" />
@@ -100,7 +100,7 @@
                         <TextBlock Grid.Row="1"
                                    FontWeight="Bold"
                                    Foreground="Black"
-                                   Text="{x:Bind ViewModel.EditedNote.Title}" />
+                                   Text="{x:Bind ViewModel.Note.Title}" />
                     </Grid>
                 </maps:MapItemsControl>
             </maps:MapControl>

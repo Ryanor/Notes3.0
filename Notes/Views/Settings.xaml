@@ -16,7 +16,7 @@
         <Grid.Background>
             <ImageBrush ImageSource="ms-appx:///Assets/Da_Vinci.png" Stretch="Fill" />
         </Grid.Background>
-        <StackPanel>
+        <StackPanel Margin="-10,-10,10,10">
             <TextBlock x:Name="Setting"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
@@ -51,6 +51,23 @@
                            FontSize="22"
                            Text="Notes in ascending order" />
                 <CheckBox Grid.Column="1" IsChecked="{Binding IsSortAscending, Mode=TwoWay, Converter={StaticResource BoolToNullableConverter}}" />
+            </Grid>
+            <Grid Margin="0,50,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontSize="22"
+                           Text="TenantID:" />
+                <TextBlock x:Name="TenantId"
+                           Grid.Column="1"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontSize="22"
+                           Text="{x:Bind ViewModel.TenantId, Mode=OneWay}" />
             </Grid>
         </StackPanel>
         <Grid Margin="0,0,0,70" VerticalAlignment="Bottom">

@@ -18,8 +18,8 @@ namespace Notes.Views
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            ViewModel.LoadNote(e.Parameter);
-            //ViewModel.LoadLocation();
+            ViewModel.Note = e.Parameter as Note;
+            ViewModel.LoadLocation();
             ((App)App.Current).OnBackRequested += OnBackRequested;
             base.OnNavigatedTo(e);
         }

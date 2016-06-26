@@ -14,58 +14,32 @@ namespace Notes.ViewModels
     public class SettingsViewModel : ViewModelBase
     {
         private readonly INavigationService _navigationService;
-        private readonly IDataService dataService;
         private readonly IStorageService storageService;
 
-        public int NumberOfNotes { get; set; } = 1;
-        public bool IsSortAscending { get; set; } = true;
-        public int MaximumNumberOfNotes
-        {
-            get
-            {
-                var notes = dataService.GetAllNotes();
-
-                if (notes != null)
-                {
-                    return notes.Count();
-                }
-                else
-                {
-                    return 1;
-                }
-            }
-        }
-        
-
-        public SettingsViewModel(IDataService _dataService, IStorageService storageService, INavigationService navigationService)
+        public SettingsViewModel(IStorageService storageService, INavigationService navigationService)
         {
             this._navigationService = navigationService;
-            this.dataService = _dataService;
             this.storageService = storageService;
             Load();
         }
+
+        public int NumberOfNotes { get; set; } = 2;
+        public bool IsSortAscending { get; set; } = true;
+        public string TenantId { get; set; }
 
 
         public void Save()
         {
             storageService.Write(nameof(NumberOfNotes), NumberOfNotes);
             storageService.Write(nameof(IsSortAscending), IsSortAscending);
-
-            var notes = dataService.GetAllNotes();
-            storageService.Write("notes", notes);
+            storageService.Write(nameof(TenantId), TenantId);
         }
 
         public void Load()
         {
-            dataService.ClearNotes();
-
-            NumberOfNotes = storageService.Read<int>(nameof(NumberOfNotes), 1);
+            NumberOfNotes = storageService.Read<int>(nameof(NumberOfNotes), 2);
             IsSortAscending = storageService.Read<bool>(nameof(IsSortAscending), true);
-            ObservableCollection<Note> notes = storageService.Read<ObservableCollection<Note>>("notes",new ObservableCollection<Note>());
-            foreach (var note in notes)
-            {
-                dataService.SaveNote(note);
-            }
+            TenantId = storageService.Read<String>(nameof(TenantId), "S1510237044");
         }
     }
 }

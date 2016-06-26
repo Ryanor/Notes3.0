@@ -55,7 +55,7 @@ namespace Notes.ViewModels
                 }
 
                 var note = new Note(NewTextTitle, NewTextNote, DateTime.Now, NewNoteLocation);
-                dataService.SaveNote(note);
+                await dataService.AddNote(note);
                 NewTextTitle = String.Empty;
                 NewTextNote = String.Empty;
                 _navigationService.GoBack();
